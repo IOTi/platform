@@ -1,0 +1,19 @@
+{
+  "bridge": {
+    "name": "IOTi",
+    "username": "CC:31:3D:E3:CE:30",
+    "port": 51826,
+    "pin": "230-21-154"
+  },
+
+  "platforms": [
+    {
+      "platform" : "websocket",
+      "name" : "websocket",
+      "port": 4050
+    }
+  ],
+
+  "accessories": [
+]
+}
