@@ -75,6 +75,10 @@ fi
 if command_exists node-red ; then
   npm_g_install 'node-red'
 fi
+
+npm_g_install 'node-red-dashboard'
+npm_g_install 'rcswitch'
+npm_g_install 'node-persist'
 ##### =============================================== #####
 
 
