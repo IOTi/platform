@@ -99,6 +99,9 @@ sed -i "s@{{arg2}}@$NODE_RED_RUNNER@g" /etc/systemd/system/node-red.service
 
 
 ##### ---------- CONFIGURING MAIN PACKAGES ---------- #####
+mkdir -p ~/.homebridge
+mkdir -p ~/.node-red
+
 wget https://raw.githubusercontent.com/IOTi/platform/master/resources/homebridge_config.json
 mv homebridge_config.json ~/.homebridge/config.json
 
