@@ -70,8 +70,8 @@ fi
 ##### ---------- INSTALL MAIN NPM PACKAGES ---------- #####
 git clone git://git.drogon.net/wiringPi
 cd wiringPi
-.build
-cd ..
+. build
+cd ~/
 
 npm_g_install() {
   : {$1:?'Package name was not defined'}
