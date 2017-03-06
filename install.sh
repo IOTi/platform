@@ -89,9 +89,22 @@ if ! command_exists node-red ; then
   npm_g_install 'node-red'
 fi
 
-npm_g_install 'node-red-dashboard'
-npm_g_install 'rcswitch'
-npm_g_install 'node-persist'
+npm_install() {
+  : {$1:?'Package name was not defined'}
+
+  echo "Install npm dependency: " $1
+  npm install --production -f --unsafe-perm $1
+}
+
+mkdir -p ~/.homebridge
+mkdir -p ~/.node-red
+
+cd ~/.node-red
+npm_install 'node-red-dashboard'
+npm_install 'rcswitch'
+npm_install 'node-persist'
+
+cd ~/
 ##### =============================================== #####
 
 
@@ -112,9 +125,6 @@ sed -i "s@{{arg2}}@$NODE_RED_RUNNER@g" /etc/systemd/system/node-red.service
 
 
 ##### ---------- CONFIGURING MAIN PACKAGES ---------- #####
-mkdir -p ~/.homebridge
-mkdir -p ~/.node-red
-
 wget https://raw.githubusercontent.com/IOTi/platform/master/resources/homebridge_config.json
 mv homebridge_config.json ~/.homebridge/config.json
 
