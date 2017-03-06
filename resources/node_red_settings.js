@@ -1,5 +1,5 @@
 /**
- * Copyright JS Foundation and other contributors, http://js.foundation
+ * Copyright 2013, 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,11 @@
 // The `https` setting requires the `fs` module. Uncomment the following
 // to make it available:
 //var fs = require("fs");
+const prStrg = require('node-persist')
+const rcswitch = require('rcswitch')
+
+prStrg.initSync();
+rcswitch.enableTransmit(0)
 
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
@@ -47,11 +52,8 @@ module.exports = {
     // The maximum length, in characters, of any message sent to the debug sidebar tab
     debugMaxLength: 1000,
 
-    // Colourise the console output of the debug node
-    //debugUseColors: true,
-
     // The file containing the flows. If not set, it defaults to flows_<hostname>.json
-    flowFile: 'IOTi_flow.json',
+    //flowFile: 'flows.json',
 
     // To enabled pretty-printing of the flow within the flow file, set the following
     //  property to true:
@@ -76,13 +78,13 @@ module.exports = {
     // By default, the Node-RED UI is available at http://localhost:1880/
     // The following property can be used to specifiy a different root path.
     // If set to false, this is disabled.
-    //httpAdminRoot: '/admin',
+    httpAdminRoot: '/admin',
 
     // Some nodes, such as HTTP In, can be used to listen for incoming http requests.
     // By default, these are served relative to '/'. The following property
     // can be used to specifiy a different root path. If set to false, this is
     // disabled.
-    //httpNodeRoot: '/red-nodes',
+    httpNodeRoot: '/red-nodes',
 
     // The following property can be used in place of 'httpAdminRoot' and 'httpNodeRoot',
     // to apply the same root to both parts.
@@ -99,7 +101,7 @@ module.exports = {
 
     // If you installed the optional node-red-dashboard you can set it's path
     // relative to httpRoot
-    //ui: { path: "ui" },
+    ui: { path: "" },
 
     // Securing Node-RED
     // -----------------
@@ -131,10 +133,6 @@ module.exports = {
     //    key: fs.readFileSync('privatekey.pem'),
     //    cert: fs.readFileSync('certificate.pem')
     //},
-
-    // The following property can be used to cause insecure HTTP connections to
-    // be redirected to HTTPS.
-    //requireHttps: true
 
     // The following property can be used to disable the editor. The admin API
     // is not affected by this option. To disable both the editor and the admin
@@ -175,9 +173,10 @@ module.exports = {
     //    context.global.os
 
     functionGlobalContext: {
-        // os:require('os'),
+        persist: prStrg,
+        rcswitch: rcswitch
         // octalbonescript:require('octalbonescript'),
-        // jfive:require("johnny-five"),
+        // jfive:requireN("johnny-five"),
         // j5board:require("johnny-five").Board({repl:false})
     },
 
