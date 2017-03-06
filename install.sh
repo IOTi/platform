@@ -60,7 +60,19 @@ nvm install 6.9.5
 ##### ================================== #####
 
 
+##### ---------- INSTALL GIT ---------- #####
+if ! command_exists git; then
+  apt-get install git-core -y
+fi
+##### ================================== #####
+
+
 ##### ---------- INSTALL MAIN NPM PACKAGES ---------- #####
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+.build
+cd ..
+
 npm_g_install() {
   : {$1:?'Package name was not defined'}
 
