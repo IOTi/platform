@@ -49,7 +49,7 @@ addUser 'IOTi' '' 'IOTi' 'IOTi user-daemon' '/bin/false'
 
 
 ##### ---------- INSTALL NVM ---------- #####
-if command_exists nvm; then
+if ! command_exists nvm; then
   echo "Start setting up node"
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | sh
 
@@ -68,11 +68,11 @@ npm_g_install() {
   npm install --production -g -f --unsafe-perm $1
 }
 
-if command_exists homebridge ; then
+if ! command_exists homebridge ; then
   npm_g_install 'homebridge'
 fi
 
-if command_exists node-red ; then
+if ! command_exists node-red ; then
   npm_g_install 'node-red'
 fi
 
