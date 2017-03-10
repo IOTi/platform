@@ -61,6 +61,7 @@ nvm install 6.9.5
 
 
 ##### ---------- INSTALL GIT ---------- #####
+apt-get update
 if ! command_exists git; then
   apt-get install git-core -y
 fi
@@ -68,6 +69,8 @@ fi
 
 
 ##### ---------- INSTALL MAIN NPM PACKAGES ---------- #####
+apt-get install libavahi-compat-libdnssd-dev -y
+
 rm -rf wiringPi
 git clone git://git.drogon.net/wiringPi
 cd wiringPi
@@ -139,24 +142,14 @@ mv IOTi_flow.json ~/.node-red/IOTi_flow.json
 ##### ---------- STARTING UNITS ---------- #####
 systemctl daemon-reload
 systemctl is-enabled node-red.service; export NODE_RED_UNIT_FOUND=$?
-if [ $NODE_RED_UNIT_FOUND = "0" ]; then
-  echo '+-> Restarting node-red service'
-  systemctl restart node-red.service   
-else
-  echo '+-> Starting node-red service'
-  systemctl enable node-red.service
-  systemctl start node-red.service  
-fi
 
-systemctl is-enabled homebridge.service; export HOMEBRIDGE_UNIT_FOUND=$?
-if [ $HOMEBRIDGE_UNIT_FOUND = "0" ]; then
-  echo '+-> Restarting homebridge service'
-  systemctl restart homebridge.service
-else
-  echo '+-> Starting homebridge service'
-  systemctl enable homebridge.service
-  systemctl start homebridge.service
-fi
+echo '+-> Starting node-red service'
+systemctl enable node-red.service
+systemctl start node-red.service  
+
+echo '+-> Starting homebridge service'
+systemctl enable homebridge.service
+systemctl start homebridge.service
 ##### ==================================== #####
 
 
