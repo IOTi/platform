@@ -108,6 +108,8 @@ npm_install 'rcswitch'
 npm_install 'node-persist'
 
 cd ~/
+
+npm_g_install 'homebridge-websocket'
 ##### =============================================== #####
 
 
