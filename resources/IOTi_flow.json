@@ -202,7 +202,7 @@
     "type": "function",
     "z": "e54c946f.c292b8",
     "name": "",
-    "func": "\nmsg.payload = JSON.parse(msg.payload)\n\n\nif (!msg.payload || !msg.payload.payload || !msg.payload.payload.name)\n  return\n  \nvar switches = context.global.persist.getItemSync('switches')||[];\n\n  \nvar name = msg.payload.payload.name\n\nswitches = switches.map(a => {\n    if(a.name != name) return a\n    a.on = msg.payload.payload.value || a.on\n    return a\n})\n\ncontext.global.persist.setItemSync('switches', switches)\nvar selected = switches.filter(a => a.name === name)[0] || {}\n\nreturn {\n    payload: {\n        topic: \"callback\",\n        payload: {\n            name: name, \n            characteristic: \"On\", \n            value: selected.on || false\n        }\n    }\n};\n",
+    "func": "\nmsg.payload = JSON.parse(msg.payload)\n\n\nif (!msg.payload || !msg.payload.payload || !msg.payload.payload.name)\n  return\n  \nvar switches = context.global.persist.getItemSync('switches')||[];\n\n  \nvar name = msg.payload.payload.name\n\nswitches = switches.map(a => {\n    if(a.name != name || typeof msg.payload.payload.value === 'undefined') return a\n    a.on = msg.payload.payload.value\n    return a\n})\n\ncontext.global.persist.setItemSync('switches', switches)\nvar selected = switches.filter(a => a.name === name)[0] || {}\n\nreturn {\n    payload: {\n        topic: \"callback\",\n        payload: {\n            name: name, \n            characteristic: \"On\", \n            value: selected.on || false\n        }\n    }\n};\n",
     "outputs": 1,
     "noerr": 0,
     "x": 370,
